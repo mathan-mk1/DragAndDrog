@@ -1,11 +1,11 @@
 import { DndProvider } from 'react-dnd';
 import './App.css';
-import DragItem from './DragItem';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import DragZone from './DragZone';
 import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import axios from 'axios';
+import DragItem from './Component/DragItem';
+import DragZone from './Component/DragZone';
 
 function App() {
   const [dragItems, setDragItems] = useState([])

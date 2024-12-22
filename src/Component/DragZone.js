@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import axios from 'axios'
 
-const DragZone = ({ onDrop, dragItems, recieveData, modifiedData, modifiedIndex, callAPI, apiCalled }) => {
+const DragZone = ({ onDrop, dragItems, recieveData, callAPI, apiCalled }) => {
 
     const [draggedItem, setDraggedItems] = useState([])
+    const [selectedIndex, setSelectedIndex] = useState(null)
 
     useEffect(() => {
         getPropertiesData()
@@ -14,9 +15,9 @@ const DragZone = ({ onDrop, dragItems, recieveData, modifiedData, modifiedIndex,
     useEffect(() => {
         if (callAPI) {
             getPropertiesData()
+            setSelectedIndex(null)
             apiCalled(true)
         }
-
     }, [callAPI])
 
     const getPropertiesData = () => {
@@ -50,13 +51,6 @@ const DragZone = ({ onDrop, dragItems, recieveData, modifiedData, modifiedIndex,
         }
     }, [dragItems])
 
-    useEffect(() => {
-        if (modifiedData) {
-            draggedItem[modifiedIndex] = modifiedData
-            setDraggedItems([...draggedItem])
-        }
-    }, [modifiedData])
-
     const [{ canDrop }, drop] = useDrop(() => ({
         accept: 'item',
         drop: (item) => onDrop(item),
@@ -65,13 +59,14 @@ const DragZone = ({ onDrop, dragItems, recieveData, modifiedData, modifiedIndex,
         })
     }))
 
-    const handleClick = (item) => {
+    const handleClick = (item, i) => {
         recieveData(item)
+        setSelectedIndex(i)
     }
     return (
         <div ref={drop} style={{ height: '90%', width: '100%', padding: '1vw', overflowY: 'auto' }}>
-            {draggedItem?.map((item) => (
-                <Button className='menuItems' variant='outlined' color='white' style={{ margin: '1vw', width: '7vw' }} onClick={() => handleClick(item)}>{item.name}</Button>
+            {draggedItem?.map((item, index) => (
+                <Button className='menuItems' variant={selectedIndex === index ? 'contained' : 'outlined'} color={selectedIndex === index ? 'success' : 'white'} style={{ margin: '1vw', width: '7vw' }} onClick={() => handleClick(item, index)}>{item.name}</Button>
             ))}
         </div>
     )
