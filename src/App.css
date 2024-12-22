@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.component{
+  width: 30%;
+  height: 90vh;
+  border: 1px solid black;
+}
+
+.menuItems{
+  border: 1px solid black;
+  width: 5vw;
+  padding: 1vw;
+}
