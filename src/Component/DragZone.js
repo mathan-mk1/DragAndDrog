@@ -37,14 +37,13 @@ const DragZone = ({ onDrop, dragItems, recieveData, callAPI, apiCalled }) => {
 
     useEffect(() => {
         if (dragItems?.length > 0) {
-            dragItems?.forEach((item, index) => {
-                let LicNo = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+            dragItems?.forEach((item) => {
                 let data = {
-                    name: item?.name ? item?.name : `${item?.name} ${index + 1}`,
-                    make: item?.name === "Car" ? 'maruthi' : item?.name === "Bike" ? "Hero" : item?.name === "Bus" ? "Ashok Leyland" : '',
-                    model: item?.name === "Car" ? 'swift' : item?.name === "Bike" ? "Passion Pro" : item?.name === "Bus" ? "A1" : '',
-                    year: 2023,
-                    license: `TN 44 Q ${LicNo}`
+                    name: item?.name ? item?.name : "",
+                    make: '',
+                    model: '',
+                    year: null,
+                    license: ''
                 }
                 setDraggedItems([...draggedItem, data])
             })
