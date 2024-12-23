@@ -18,7 +18,7 @@ const DragZone = ({ onDrop, dragItems, recieveData, callAPI, apiCalled }) => {
             setSelectedIndex(null)
             apiCalled(true)
         }
-    }, [callAPI])
+    }, [callAPI, apiCalled])
 
     const getPropertiesData = () => {
         try {
@@ -45,12 +45,12 @@ const DragZone = ({ onDrop, dragItems, recieveData, callAPI, apiCalled }) => {
                     year: null,
                     license: ''
                 }
-                setDraggedItems([...draggedItem, data])
+                setDraggedItems((prevDraggedItems) => [...prevDraggedItems, data]);
             })
         }
     }, [dragItems])
 
-    const [{ canDrop }, drop] = useDrop(() => ({
+    const [, drop] = useDrop(() => ({
         accept: 'item',
         drop: (item) => onDrop(item),
         collect: (monitor) => ({
